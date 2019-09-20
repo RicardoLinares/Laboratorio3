@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript">
+        var ajax = new XMLHttpRequest();
+    ajax.open("POST","json_test2.php");
+    ajax.setRequestHeader("content-type","application/x-www-form-urlencoded");
+    ajax.send();
+    ajax.onreadystatechange = function()
+    {
+    if(ajax.status == 200 && ajax.readyState == 4)
+    {
+          console.log(ajax.responseText);
+        
+        var nuevo = JSON.parse(ajax.responseText);
+        console.log(nuevo);
+
+        let table = "<table border='1'><tr><td>Id</td><td>Marca</td><td>Precio</td><td>Color</td><td>Modelo</td><td>Acciones</td></tr>" // </td></table>
+
+        nuevo.forEach(element => {
+            table += "<tr><td>"+ element.Id + 
+                "</td><td>" + element.Marca + 
+                    "</td><td>"+ element.Precio + 
+                        "</td><td>"+ element.Color + 
+                            "</td><td>"+ element.Modelo +
+                 '</td><td><input type="button" value="mostrar" onclick="verAuto('+JSON.stringify(element)+')></input></td></tr>';
+        });
+        table += "</table>";
+        
+        document.write(table)
+    }
+    function verAuto(valor)
+    {
+        console.log(valor);
+    }
+}
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
